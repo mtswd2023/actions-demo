@@ -33,7 +33,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: $PR_BRANCH
+          ref: ${{ env.PR_BRANCH }}
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
