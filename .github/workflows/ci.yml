@@ -25,9 +25,10 @@ jobs:
           set -ex
           if [ -z "$PR_URL" ]
           then 
-            PR_BRANCH=$HEAD_REF
+            echo "PR_BRANCH=$HEAD_REF" >> $GITHUB_ENV
           else
             PR_BRANCH=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" $PR_URL | jq .head.ref)
+            echo echo "PR_BRANCH=$PR_BRANCH" >> $GITHUB_ENV
           fi
       - name: Checkout
         uses: actions/checkout@v2
