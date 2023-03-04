@@ -23,11 +23,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -ex
-          if [ -z "$PR_URL" ]
-          then 
+          if [ -z "$PR_URL" ]; then 
             echo "PR_BRANCH=$HEAD_REF" >> $GITHUB_ENV
           else
-            PR_BRANCH=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" $PR_URL | jq .head.ref)
+            MY_PR_URL=$PR_URL
+            PR=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" $MY_PR_URL)
+            PR_BRANCH=$(echo $PR | jq .head.ref)
             echo "PR_BRANCH=$PR_BRANCH" >> $GITHUB_ENV
           fi
       - name: Checkout
