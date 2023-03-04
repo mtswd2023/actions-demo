@@ -32,6 +32,6 @@ class ArithmeticTest extends FunSuite {
   }
 
   test("mul overflow") {
-    assertEquals(arithmetic.mul(Int.MaxValue, 2), Int.MinValue)
+    assertEquals(arithmetic.mul(Int.MaxValue, 2), -2)
   }
 }
