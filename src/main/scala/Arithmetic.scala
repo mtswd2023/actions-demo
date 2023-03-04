@@ -5,10 +5,8 @@ class Arithmetic {
   def sum(a: Int, b: Int): Int = {
     a + b
   }
-}
 
-object Main {
-  def main(args: Array[String]): Unit = {
-    println(new Arithmetic().sum(1, 10))
+  def mul(x: Int, y: Int): Int = {
+    x * y
   }
 }
