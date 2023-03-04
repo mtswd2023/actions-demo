@@ -11,8 +11,4 @@ class Arithmetic {
   def mul(x: Int, y: Int): Int = {
     x * y
   }
-
-  def buggy(): Boolean = {
-    Random.nextBoolean()
-  }
 }
