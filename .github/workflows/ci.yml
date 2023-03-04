@@ -18,11 +18,13 @@ jobs:
       - uses: hmarr/debug-action@v2
       - name: Figure out the branch
         env:
+          EVT: ${{github.event}}
           PR_URL: ${{github.event.comment.issue.pull_request.url}}
           HEAD_REF: ${{ github.head_ref }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -ex
+          echo $EVT
           if [ -z "$PR_URL" ]; then 
             echo "PR_BRANCH=$HEAD_REF" >> $GITHUB_ENV
           else
