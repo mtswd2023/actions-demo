@@ -16,8 +16,23 @@ jobs:
     if: ${{ (github.event.issue.pull_request && github.event.comment.body == '/retest') || (github.event.action == 'opened') || (github.event.action == 'synchronize') || (github.event_name == 'push') }}
     steps:
       - uses: hmarr/debug-action@v2
+      - name: Figure out the branch
+        env:
+          PR_URL: ${{github.event.comment.issue.pull_request.url}}
+          HEAD_REF: ${{ github.head_ref }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -ex
+          if [ -z "$PR_URL" ]
+          then 
+            PR_BRANCH=$HEAD_REF
+          else
+            PR_BRANCH=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" $PR_URL | jq .head.ref)
+          fi
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: $PR_BRANCH
       - name: Setup JDK
         uses: actions/setup-java@v3
         with:
